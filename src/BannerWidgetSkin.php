@@ -7,10 +7,11 @@
  * PHP version 7
  *
  * @category    Banner
- * @package     Xpressengine\Plugins\Banner
+ *
  * @author      XE Team (developers) <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 
@@ -22,10 +23,11 @@ use Xpressengine\Skin\GenericSkin;
  * BannerWidgetSkin
  *
  * @category    Widget
- * @package     Xpressengine\Plugins\Banner
+ *
  * @author      XE Team (developers) <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 class BannerWidgetSkin extends GenericSkin
@@ -33,16 +35,16 @@ class BannerWidgetSkin extends GenericSkin
     /**
      * get banner info
      *
-     * @param null|string $key key
-     *
+     * @param  null|string  $key  key
      * @return array
      */
     public static function getBannerInfo($key = null)
     {
         if ($key) {
-            $key = '.' . $key;
+            $key = '.'.$key;
         }
-        return static::info('banner' . $key);
+
+        return static::info('banner'.$key);
     }
 
     /**

@@ -7,17 +7,18 @@
  * PHP version 7
  *
  * @category    Banner
- * @package     Xpressengine\Plugins\Banner
+ *
  * @author      XE Team (developers) <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 
 namespace Xpressengine\Plugins\Banner\Controllers;
 
-use XePresenter;
 use App\Http\Controllers\Controller as Origin;
+use XePresenter;
 use Xpressengine\Http\Request;
 use Xpressengine\Plugins\Banner\Handler;
 use Xpressengine\Plugins\Banner\Models\Group;
@@ -27,10 +28,11 @@ use Xpressengine\Plugins\Banner\Plugin;
  * GroupController
  *
  * @category    Widget
- * @package     Xpressengine\Plugins\Banner
+ *
  * @author      XE Team (developers) <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 class GroupController extends Origin
@@ -43,7 +45,7 @@ class GroupController extends Origin
     /**
      * GroupController constructor.
      *
-     * @param Plugin $plugin plugin
+     * @param  Plugin  $plugin  plugin
      */
     public function __construct(Plugin $plugin)
     {
@@ -53,8 +55,7 @@ class GroupController extends Origin
     /**
      * index
      *
-     * @param Handler $handler banner handler
-     *
+     * @param  Handler  $handler  banner handler
      * @return mixed
      */
     public function index(Handler $handler)
@@ -78,17 +79,17 @@ class GroupController extends Origin
     }
 
     /**
-     * @param Request $request request
-     * @param Handler $handler banner handler
-     *
+     * @param  Request  $request  request
+     * @param  Handler  $handler  banner handler
      * @return \Illuminate\Http\RedirectResponse
+     *
      * @throws \Exception
      */
     public function store(Request $request, Handler $handler)
     {
         $this->validate($request, [
             'title' => 'required|unique:banner_group',
-            'skin' => 'required'
+            'skin' => 'required',
         ]);
 
         $inputs = $request->only('title', 'skin');
@@ -108,10 +109,9 @@ class GroupController extends Origin
     /**
      * edit
      *
-     * @param Request $request  request
-     * @param Handler $handler  banner handler
-     * @param string  $group_id group id
-     *
+     * @param  Request  $request  request
+     * @param  Handler  $handler  banner handler
+     * @param  string  $group_id  group id
      * @return mixed
      */
     public function edit(Request $request, Handler $handler, $group_id)
@@ -137,8 +137,7 @@ class GroupController extends Origin
     /**
      * update form
      *
-     * @param string $group_id group id
-     *
+     * @param  string  $group_id  group id
      * @return mixed
      */
     public function updateForm($group_id)
@@ -151,10 +150,9 @@ class GroupController extends Origin
     /**
      * update
      *
-     * @param Request $request  request
-     * @param Handler $handler  banner handler
-     * @param string  $group_id group id
-     *
+     * @param  Request  $request  request
+     * @param  Handler  $handler  banner handler
+     * @param  string  $group_id  group id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Handler $handler, $group_id)
@@ -185,10 +183,10 @@ class GroupController extends Origin
     /**
      * destroy
      *
-     * @param Handler $handler Banner handler
-     * @param string  $groupId Group id
-     *
+     * @param  Handler  $handler  Banner handler
+     * @param  string  $groupId  Group id
      * @return mixed|\Xpressengine\Presenter\Presentable
+     *
      * @throws \Throwable
      */
     public function destroy(Handler $handler, $groupId)

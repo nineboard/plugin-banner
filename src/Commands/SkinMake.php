@@ -23,7 +23,7 @@ final class SkinMake extends \App\Console\Commands\SkinMake
      *
      * @var string
      */
-    protected $description = "Create a new banner widget skin of XpressEngine";
+    protected $description = 'Create a new banner widget skin of XpressEngine';
 
     /**
      * 스킨 타겟
@@ -42,14 +42,14 @@ final class SkinMake extends \App\Console\Commands\SkinMake
      */
     protected function getStubPath()
     {
-        return __DIR__ . '/stubs/skin';
+        return __DIR__.'/stubs/skin';
     }
 
     /**
      * 베이스(Stub) 파일을 바탕으로 플로그인에서 사용할 파일을 생성합니다.
      *
-     * @param $attr
      * @return void
+     *
      * @throws \Exception
      */
     protected function makeUsable($attr)
@@ -60,13 +60,12 @@ final class SkinMake extends \App\Console\Commands\SkinMake
         $this->makeSkinClass($attr);
 
         /** Info */
-        $this->renameStubFile($path . '/info.stub');
+        $this->renameStubFile($path.'/info.stub');
 
         /** View Files */
         $viewPaths = [sprintf('%s/views', $path)];
 
-        foreach ($viewPaths as $viewPath)
-        {
+        foreach ($viewPaths as $viewPath) {
             $files = $this->files->files($viewPath, false);
 
             foreach ($files as $file) {
@@ -77,8 +76,6 @@ final class SkinMake extends \App\Console\Commands\SkinMake
 
     /**
      * rename Stub 파일
-     *
-     * @param $fileName
      */
     private function renameStubFile($fileName)
     {

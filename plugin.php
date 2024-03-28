@@ -5,10 +5,11 @@
  * PHP version 7
  *
  * @category    Banner
- * @package     Xpressengine\Plugins\Banner
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 
@@ -19,17 +20,17 @@ use Illuminate\Database\Schema\Blueprint;
 use Route;
 use Schema;
 use Xpressengine\Plugin\AbstractPlugin;
-use Xpressengine\Plugins\Banner\Commands;
 use Xpressengine\Plugins\Banner\Models\Group;
 
 /**
  * Class Plugin
  *
  * @category    Banner
- * @package     Xpressengine\Plugins\Banner
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 class Plugin extends AbstractPlugin
@@ -43,11 +44,11 @@ class Plugin extends AbstractPlugin
     {
         app()->singleton(Handler::class, function ($app) {
             $proxyClass = app('xe.interception')->proxy(Handler::class, 'Banner');
+
             return new $proxyClass($this);
         });
         app()->alias(Handler::class, 'xe.banner');
     }
-
 
     /**
      * 이 메소드는 활성화(activate) 된 플러그인이 부트될 때 항상 실행됩니다.
@@ -88,40 +89,40 @@ class Plugin extends AbstractPlugin
                     // GET settings/banner/groups/create
                     Route::get('create', [
                         'as' => 'banner::group.create',
-                        'uses' => 'GroupController@create'
+                        'uses' => 'GroupController@create',
                     ]);
 
                     // 그룹 생성
                     // POST settings/banner/groups
                     Route::post('/', [
                         'as' => 'banner::group.store',
-                        'uses' => 'GroupController@store'
+                        'uses' => 'GroupController@store',
                     ]);
 
                     // 그룹 삭제
                     // DEL settings/banner/groups/GROUP_ID
                     Route::delete('{group_id}', [
                         'as' => 'banner::group.delete',
-                        'uses' => 'GroupController@destroy'
+                        'uses' => 'GroupController@destroy',
                     ]);
 
                     // 그룹 수정
                     // GET settings/banner/groups/GROUP_ID
                     Route::get('{group_id}', [
                         'as' => 'banner::group.update',
-                        'uses' => 'GroupController@updateForm'
+                        'uses' => 'GroupController@updateForm',
                     ]);
                     // PUT settings/banner/groups/GROUP_ID
                     Route::put('{group_id}', [
                         'as' => 'banner::group.update',
-                        'uses' => 'GroupController@update'
+                        'uses' => 'GroupController@update',
                     ]);
 
                     // 편집기 출력(그룹 편집)
                     // GET settings/banner/groups/GROUP_ID/edit
                     Route::get('{group_id}/edit', [
                         'as' => 'banner::group.edit',
-                        'uses' => 'GroupController@edit'
+                        'uses' => 'GroupController@edit',
                     ]);
 
                     Route::group(
@@ -130,29 +131,29 @@ class Plugin extends AbstractPlugin
                             // 아이템 생성
                             // POST settings/banner/groups/GROUP_ID/items
                             Route::post('/', [
-                                'as' =>  'banner::item.store',
-                                'uses' => 'ItemController@store'
+                                'as' => 'banner::item.store',
+                                'uses' => 'ItemController@store',
                             ]);
 
                             // 아이템 편집
                             // GET settinngs/banner/groups/GROUP_ID/items/ITEM_ID/edit
                             Route::get('{item_id}/edit', [
                                 'as' => 'banner::item.edit',
-                                'uses' => 'ItemController@edit'
+                                'uses' => 'ItemController@edit',
                             ]);
 
                             // 아이템 삭제
                             // DEL settings/banner/groups/GROUP_ID/items/ITEM_ID
                             Route::delete('{item_id}', [
                                 'as' => 'banner::item.delete',
-                                'uses' => 'ItemController@destroy'
+                                'uses' => 'ItemController@destroy',
                             ]);
 
                             // 아이템 수정
                             // PUT settings/banner/groups/GROUP_ID/items/ITEM_ID
                             Route::put('{item_id}', [
                                 'as' => 'banner::item.update',
-                                'uses' => 'ItemController@update'
+                                'uses' => 'ItemController@update',
                             ]);
                         }
                     );
@@ -166,7 +167,7 @@ class Plugin extends AbstractPlugin
                 'title' => '배너',
                 'display' => true,
                 'description' => '',
-                'ordering' => 6000
+                'ordering' => 6000,
             ],
         ];
         foreach ($menus as $id => $menu) {
@@ -177,8 +178,7 @@ class Plugin extends AbstractPlugin
     /**
      * 플러그인이 활성화될 때 실행할 코드를 여기에 작성한다.
      *
-     * @param string|null $installedVersion 현재 XpressEngine에 설치된 플러그인의 버전정보
-     *
+     * @param  string|null  $installedVersion  현재 XpressEngine에 설치된 플러그인의 버전정보
      * @return void
      */
     public function activate($installedVersion = null)
@@ -193,11 +193,11 @@ class Plugin extends AbstractPlugin
      */
     public function install()
     {
-        if (!Schema::hasTable('banner_item')) {
+        if (! Schema::hasTable('banner_item')) {
             Schema::create(
                 'banner_item',
                 function (Blueprint $table) {
-                    $table->engine = "InnoDB";
+                    $table->engine = 'InnoDB';
 
                     $table->string('id', 36)->primary();
                     $table->string('group_id', 36);
@@ -219,11 +219,11 @@ class Plugin extends AbstractPlugin
             );
         }
 
-        if (!Schema::hasTable('banner_group')) {
+        if (! Schema::hasTable('banner_group')) {
             Schema::create(
                 'banner_group',
                 function (Blueprint $table) {
-                    $table->engine = "InnoDB";
+                    $table->engine = 'InnoDB';
 
                     $table->string('id', 36)->primary();
                     $table->string('title')->unique();
@@ -240,7 +240,7 @@ class Plugin extends AbstractPlugin
      * 해당 플러그인이 설치된 상태라면 true, 설치되어있지 않다면 false를 반환한다.
      * 이 메소드를 구현하지 않았다면 기본적으로 설치된 상태(true)를 반환한다.
      *
-     * @return boolean 플러그인의 설치 유무
+     * @return bool 플러그인의 설치 유무
      */
     public function checkInstalled()
     {
@@ -255,12 +255,12 @@ class Plugin extends AbstractPlugin
     public function update()
     {
         // for v0.9.3
-        if (!Schema::hasColumn('banner_group', 'count')) {
+        if (! Schema::hasColumn('banner_group', 'count')) {
             Schema::table('banner_group', function (Blueprint $table) {
                 $table->integer('count')->default(0)->after('skin');
             });
         }
-        if (!Schema::hasColumn('banner_item', 'etc')) {
+        if (! Schema::hasColumn('banner_item', 'etc')) {
             Schema::table('banner_item', function (Blueprint $table) {
                 $table->text('etc')->after('ended_at');
             });
@@ -271,15 +271,15 @@ class Plugin extends AbstractPlugin
      * 해당 플러그인이 최신 상태로 업데이트가 된 상태라면 true, 업데이트가 필요한 상태라면 false를 반환함.
      * 이 메소드를 구현하지 않았다면 기본적으로 최신업데이트 상태임(true)을 반환함.
      *
-     * @return boolean 플러그인의 설치 유무,
+     * @return bool 플러그인의 설치 유무,
      */
     public function checkUpdated()
     {
         // for v0.9.3
-        if (!Schema::hasColumn('banner_group', 'count')) {
+        if (! Schema::hasColumn('banner_group', 'count')) {
             return false;
         }
-        if (!Schema::hasColumn('banner_item', 'etc')) {
+        if (! Schema::hasColumn('banner_item', 'etc')) {
             return false;
         }
 

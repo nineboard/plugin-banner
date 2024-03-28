@@ -7,10 +7,11 @@
  * PHP version 7
  *
  * @category    Banner
- * @package     Xpressengine\Plugins\Banner
+ *
  * @author      XE Team (developers) <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 
@@ -24,10 +25,11 @@ use Xpressengine\Media\Models\Image;
  * Item
  *
  * @category    Widget
- * @package     Xpressengine\Plugins\Banner
+ *
  * @author      XE Team (developers) <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 class Item extends DynamicModel
@@ -44,7 +46,7 @@ class Item extends DynamicModel
         'use_timer' => 'boolean',
         'started_at' => 'datetime',
         'ended_at' => 'datetime',
-        'etc' => 'array'
+        'etc' => 'array',
     ];
 
     protected $fillable = ['order'];
@@ -69,8 +71,7 @@ class Item extends DynamicModel
     /**
      * get image size
      *
-     * @param null|string $type type
-     *
+     * @param  null|string  $type  type
      * @return mixed
      */
     public function getImageSize($type = null)
@@ -98,16 +99,15 @@ class Item extends DynamicModel
     /**
      * check is visible
      *
-     * @param Carbon|null $time time
-     *
+     * @param  Carbon|null  $time  time
      * @return bool
      */
-    public function isVisible(Carbon $time = null)
+    public function isVisible(?Carbon $time = null)
     {
         if ($this->status !== 'show') {
             return false;
         }
-        if (!$this->use_timer) {
+        if (! $this->use_timer) {
             return true;
         }
 

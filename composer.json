@@ -1,5 +1,5 @@
 {
-  "name": "xpressengine-plugin/banner",
+  "name": "nineboard/plugin-banner",
   "description": "배너 기능 제공 플러그인 입니다.",
   "keywords": [
     "xpressengine",
@@ -40,8 +40,14 @@
     }
   },
   "require": {
-    "xpressengine/xpressengine": "^3.0.9"
+    "nineboard/nineboard": "dev-main"
   },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git://github.com/nineboard/nineboard.git"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "Xpressengine\\Plugins\\Banner\\": "src/"
@@ -49,5 +55,14 @@
     "classmap": [
       "skins/widget/WidgetSkin.php"
     ]
+  },
+  "require-dev": {
+    "laravel/pint": "^1.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "xpressengine/installer": false,
+      "wikimedia/composer-merge-plugin": false
+    }
   }
 }

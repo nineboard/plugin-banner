@@ -7,10 +7,11 @@
  * PHP version 7
  *
  * @category    Banner
- * @package     Xpressengine\Plugins\Banner
+ *
  * @author      XE Team (developers) <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 
@@ -26,10 +27,11 @@ use Xpressengine\Plugins\Banner\Models\Item;
  * Handler
  *
  * @category    Widget
- * @package     Xpressengine\Plugins\Banner
+ *
  * @author      XE Team (developers) <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 class Handler
@@ -44,7 +46,7 @@ class Handler
     /**
      * Handler constructor.
      *
-     * @param Plugin $plugin plugin
+     * @param  Plugin  $plugin  plugin
      */
     public function __construct(Plugin $plugin)
     {
@@ -54,8 +56,7 @@ class Handler
     /**
      * create group
      *
-     * @param array $attrs attributes
-     *
+     * @param  array  $attrs  attributes
      * @return Group
      */
     public function createGroup($attrs)
@@ -64,14 +65,14 @@ class Handler
         $group->skin = $attrs['skin'];
         $group->title = $attrs['title'];
         $group->save();
+
         return $group;
     }
 
     /**
      * get group
      *
-     * @param string $group_id group id
-     *
+     * @param  string  $group_id  group id
      * @return Group
      */
     public function getGroup($group_id)
@@ -82,9 +83,9 @@ class Handler
     /**
      * remove group
      *
-     * @param string|Group $group group or group id
-     *
+     * @param  string|Group  $group  group or group id
      * @return void
+     *
      * @throws \Exception
      */
     public function removeGroup($group)
@@ -125,9 +126,8 @@ class Handler
     /**
      * create item
      *
-     * @param Group $group group model
-     * @param array $attrs attributes
-     *
+     * @param  Group  $group  group model
+     * @param  array  $attrs  attributes
      * @return Item
      */
     public function createItem($group, $attrs = [])
@@ -174,8 +174,7 @@ class Handler
     /**
      * get item
      *
-     * @param string $item_id item id
-     *
+     * @param  string  $item_id  item id
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Item|Item[]|null
      */
     public function getItem($item_id)
@@ -186,9 +185,8 @@ class Handler
     /**
      * update item
      *
-     * @param Group $item  group item
-     * @param array $attrs attributes
-     *
+     * @param  Group  $item  group item
+     * @param  array  $attrs  attributes
      * @return mixed
      */
     public function updateItem($item, $attrs = [])
@@ -214,14 +212,14 @@ class Handler
         }
 
         $item->save();
+
         return $item;
     }
 
     /**
      * remove file
      *
-     * @param array $image image
-     *
+     * @param  array  $image  image
      * @return void
      */
     protected function removeFile($image)
@@ -240,9 +238,8 @@ class Handler
     /**
      * save image
      *
-     * @param Item         $item item
-     * @param UploadedFile $file image file
-     *
+     * @param  Item  $item  item
+     * @param  UploadedFile  $file  image file
      * @return array
      */
     protected function saveImage(Item $item, UploadedFile $file)
@@ -253,14 +250,14 @@ class Handler
                 $this->getSavedPath($item),
                 $item->getImageSize('width'),
                 $item->getImageSize('height'),
-                hash('sha1', $item->id) . '.' . $file->getClientOriginalExtension()
+                hash('sha1', $item->id).'.'.$file->getClientOriginalExtension()
             ) : $this->simpleSave($file, $this->getSavedPath($item));
 
         app('xe.storage')->bind($item->id, $file);
 
         $saved = [
             'id' => $file->id,
-            'filename' => $file->clientname
+            'filename' => $file->clientname,
         ];
 
         $mediaFile = null;
@@ -275,12 +272,11 @@ class Handler
     /**
      * save after resize
      *
-     * @param UploadedFile $file   file
-     * @param string       $path   save path
-     * @param int          $width  width
-     * @param int          $height height
-     * @param null|string  $name   name
-     *
+     * @param  UploadedFile  $file  file
+     * @param  string  $path  save path
+     * @param  int  $width  width
+     * @param  int  $height  height
+     * @param  null|string  $name  name
      * @return UploadedFile
      */
     protected function saveAfterResize(UploadedFile $file, $path, $width, $height, $name = null)
@@ -303,9 +299,8 @@ class Handler
     /**
      * simple save
      *
-     * @param UploadedFile $file file
-     * @param string       $path save path
-     *
+     * @param  UploadedFile  $file  file
+     * @param  string  $path  save path
      * @return UploadedFile
      */
     protected function simpleSave(UploadedFile $file, $path)
@@ -318,8 +313,7 @@ class Handler
     /**
      * get save path
      *
-     * @param Item $item item
-     *
+     * @param  Item  $item  item
      * @return string
      */
     protected function getSavedPath(Item $item)
@@ -330,9 +324,9 @@ class Handler
     /**
      * remove item
      *
-     * @param Item $item item
-     *
+     * @param  Item  $item  item
      * @return void
+     *
      * @throws \Exception
      */
     public function removeItem($item)
@@ -348,9 +342,8 @@ class Handler
     /**
      * sort items
      *
-     * @param Group        $group  group
-     * @param string|array $orders order
-     *
+     * @param  Group  $group  group
+     * @param  string|array  $orders  order
      * @return void
      */
     public function sortItems($group, $orders)
@@ -365,10 +358,9 @@ class Handler
     /**
      * get items
      *
-     * @param Group    $group       group
-     * @param null|int $count       get count
-     * @param bool     $onlyVisible only visible
-     *
+     * @param  Group  $group  group
+     * @param  null|int  $count  get count
+     * @param  bool  $onlyVisible  only visible
      * @return mixed
      */
     public function getItems($group, $count = null, $onlyVisible = false)
@@ -397,8 +389,7 @@ class Handler
     /**
      * set resizeable
      *
-     * @param bool $bool set resizable
-     *
+     * @param  bool  $bool  set resizable
      * @return void
      */
     public static function setResizable($bool = true)

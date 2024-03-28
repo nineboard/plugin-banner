@@ -7,10 +7,11 @@
  * PHP version 7
  *
  * @category    Banner
- * @package     Xpressengine\Plugins\Banner
+ *
  * @author      XE Team (developers) <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 
@@ -26,10 +27,11 @@ use Xpressengine\Plugins\Banner\Plugin;
  * ItemController
  *
  * @category    Widget
- * @package     Xpressengine\Plugins\Widget
+ *
  * @author      XE Team (developers) <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 class ItemController extends Origin
@@ -42,7 +44,7 @@ class ItemController extends Origin
     /**
      * ItemController constructor.
      *
-     * @param Plugin $plugin plugin
+     * @param  Plugin  $plugin  plugin
      */
     public function __construct(Plugin $plugin)
     {
@@ -52,11 +54,11 @@ class ItemController extends Origin
     /**
      * store
      *
-     * @param Request $request  request
-     * @param Handler $handler  banner handler
-     * @param string  $group_id group id
-     *
+     * @param  Request  $request  request
+     * @param  Handler  $handler  banner handler
+     * @param  string  $group_id  group id
      * @return mixed
+     *
      * @throws \Throwable
      */
     public function store(Request $request, Handler $handler, $group_id)
@@ -67,13 +69,14 @@ class ItemController extends Origin
         try {
             $item = $handler->createItem($group);
             $data = [
-                'item' => view('banner::views.settings.group.item', compact('item'))->render()
+                'item' => view('banner::views.settings.group.item', compact('item'))->render(),
             ];
         } catch (\Exception $e) {
             \DB::rollBack();
             throw $e;
         }
         \DB::commit();
+
         return app('xe.presenter')
             ->makeApi(array_merge($data, ['alert' => ['type' => 'success', 'message' => '추가되었습니다.']]));
     }
@@ -81,11 +84,10 @@ class ItemController extends Origin
     /**
      * edit
      *
-     * @param Request $request  request
-     * @param Handler $handler  banner handler
-     * @param string  $group_id group id
-     * @param string  $item_id  item id
-     *
+     * @param  Request  $request  request
+     * @param  Handler  $handler  banner handler
+     * @param  string  $group_id  group id
+     * @param  string  $item_id  item id
      * @return mixed
      */
     public function edit(Request $request, Handler $handler, $group_id, $item_id)
@@ -93,18 +95,19 @@ class ItemController extends Origin
         $group = $handler->getGroup($group_id);
         $skin = \XeSkin::get($group->skin);
         $item = $handler->getItem($item_id);
+
         return api_render($this->plugin->view('views.settings.item.edit'), compact('item', 'skin'));
     }
 
     /**
      * update
      *
-     * @param Request $request  request
-     * @param Handler $handler  banner handler
-     * @param string  $group_id group id
-     * @param string  $item_id  item id
-     *
+     * @param  Request  $request  request
+     * @param  Handler  $handler  banner handler
+     * @param  string  $group_id  group id
+     * @param  string  $item_id  item id
      * @return mixed
+     *
      * @throws \Throwable
      */
     public function update(Request $request, Handler $handler, $group_id, $item_id)
@@ -120,10 +123,10 @@ class ItemController extends Origin
         $et = $request->get('ended_at_time');
 
         if ($sd) {
-            $inputs['started_at'] = $sd . ' ' . ($st ?: '00:00') . ':00';
+            $inputs['started_at'] = $sd.' '.($st ?: '00:00').':00';
         }
         if ($ed) {
-            $inputs['ended_at'] = $ed . ' ' . ($et ?: '00:00') . ':00';
+            $inputs['ended_at'] = $ed.' '.($et ?: '00:00').':00';
         }
 
         if (array_get($inputs, 'link_target') === null) {
@@ -146,7 +149,7 @@ class ItemController extends Origin
             $item = $handler->updateItem($item, $inputs);
 
             $data = [
-                'item' => view('banner::views.settings.group.item', compact('item'))->render()
+                'item' => view('banner::views.settings.group.item', compact('item'))->render(),
             ];
         } catch (\Exception $e) {
             \DB::rollBack();
@@ -161,12 +164,12 @@ class ItemController extends Origin
     /**
      * destroy
      *
-     * @param Request $request  request
-     * @param Handler $handler  banner handler
-     * @param string  $group_id group id
-     * @param string  $item_id  item id
-     *
+     * @param  Request  $request  request
+     * @param  Handler  $handler  banner handler
+     * @param  string  $group_id  group id
+     * @param  string  $item_id  item id
      * @return mixed
+     *
      * @throws \Exception
      */
     public function destroy(Request $request, Handler $handler, $group_id, $item_id)

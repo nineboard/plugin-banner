@@ -5,10 +5,11 @@
  * PHP version 7
  *
  * @category    Banner
- * @package     Xpressengine\Plugins\Banner
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 
@@ -20,10 +21,11 @@ use Xpressengine\Plugins\Banner\BannerWidgetSkin;
  * Class WidgetSkin
  *
  * @category    Banner
- * @package     Xpressengine\Plugins\Banner
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 class WidgetSkin extends BannerWidgetSkin
@@ -39,8 +41,7 @@ class WidgetSkin extends BannerWidgetSkin
     public function render()
     {
         app('xe.frontend')->css('assets/vendor/bootstrap/css/bootstrap.min.css')->load();
+
         return parent::render();
     }
-
-
 }

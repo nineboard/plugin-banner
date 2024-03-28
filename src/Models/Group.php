@@ -7,10 +7,11 @@
  * PHP version 7
  *
  * @category    Banner
- * @package     Xpressengine\Plugins\Banner
+ *
  * @author      XE Team (developers) <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 
@@ -24,10 +25,11 @@ use Xpressengine\Plugins\Banner\BannerWidgetSkin;
  * Group
  *
  * @category    Widget
- * @package     Xpressengine\Plugins\Banner
+ *
  * @author      XE Team (developers) <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 class Group extends DynamicModel
@@ -58,9 +60,8 @@ class Group extends DynamicModel
     }
 
     /**
-     * @param null|string $key     key
-     * @param null|mixed  $default default
-     *
+     * @param  null|string  $key  key
+     * @param  null|mixed  $default  default
      * @return array|mixed
      */
     public function getSkinInfo($key = null, $default = null)
@@ -69,7 +70,7 @@ class Group extends DynamicModel
         $skin = $this->resolveSkin($this->skin)->getClass();
         $info = $skin::getBannerInfo();
 
-        if (!$key) {
+        if (! $key) {
             return $info;
         }
 
@@ -79,15 +80,14 @@ class Group extends DynamicModel
     /**
      * get image size
      *
-     * @param null|string $type type
-     *
+     * @param  null|string  $type  type
      * @return array|mixed
      */
     public function getImageSize($type = null)
     {
         $size = $this->getSkinInfo('image', ['widget' => 800, 'height' => 600]);
 
-        if (!$type) {
+        if (! $type) {
             return $size;
         }
 
@@ -112,8 +112,7 @@ class Group extends DynamicModel
     /**
      * set skin resolver
      *
-     * @param callable $resolver resolver
-     *
+     * @param  callable  $resolver  resolver
      * @return void
      */
     public static function setSkinResolver(callable $resolver)
@@ -124,8 +123,7 @@ class Group extends DynamicModel
     /**
      * resolve skin
      *
-     * @param string $skinId skin id
-     *
+     * @param  string  $skinId  skin id
      * @return mixed
      */
     protected function resolveSkin($skinId)
